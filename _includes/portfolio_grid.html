@@ -1,0 +1,91 @@
+<!-- Portfolio Grid -->
+{% if site.locale and site.locale != "" and site.locale != nil %}
+<section class="bg-light page-section" id="{{ site.data.sitetext[site.locale].portfolio.section | default: "portfolio" }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">
+          {{ site.data.sitetext[site.locale].portfolio.title | markdownify | default: "Portfolio" }}
+        </h2>
+        <h3 class="section-subheading text-muted">
+          {{ site.data.sitetext[site.locale].portfolio.text | markdownify }}
+        </h3>
+      </div>
+    </div>
+
+    <div class="row">
+    {% for project in site.portfolio %}
+      <div class="col-md-4 col-sm-6 portfolio-item">
+
+        <!-- 🔥 전체 클릭 가능하도록 수정 -->
+        <a class="portfolio-link" data-toggle="modal" href="#p{{ forloop.index }}">
+
+          <!-- (선택) hover 효과 제거 가능 -->
+          <div class="portfolio-hover">
+            <div class="portfolio-hover-content">
+              <i class="{{ site.data.style.portfolio-icon | default: "fas fa-plus fa-3x" }}"></i>
+            </div>
+          </div>
+
+          <!-- 썸네일 -->
+          <img class="img-fluid" src="{{ project.caption.thumbnail }}" alt="">
+
+          <!-- 🔥 caption을 a 안으로 이동 -->
+          <div class="portfolio-caption">
+            <h4>{{ project.caption.title }}</h4>
+            <p class="text-muted">{{ project.caption.subtitle }}</p>
+          </div>
+
+        </a>
+
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% else %}
+<section class="bg-light page-section" id="{{ site.data.sitetext.portfolio.section | default: "portfolio" }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">
+          {{ site.data.sitetext.portfolio.title | markdownify | default: "Portfolio" }}
+        </h2>
+        <h3 class="section-subheading text-muted">
+          {{ site.data.sitetext.portfolio.text | markdownify }}
+        </h3>
+      </div>
+    </div>
+
+    <div class="row">
+    {% for project in site.portfolio %}
+      <div class="col-md-4 col-sm-6 portfolio-item">
+
+        <!-- 🔥 전체 클릭 가능 -->
+        <a class="portfolio-link" data-toggle="modal" href="#p{{ forloop.index }}">
+
+          <div class="portfolio-hover">
+            <div class="portfolio-hover-content">
+              <i class="{{ site.data.style.portfolio-icon | default: "fas fa-plus fa-3x" }}"></i>
+            </div>
+          </div>
+
+          <img class="img-fluid" src="{{ project.caption.thumbnail }}" alt="">
+
+          <!-- 🔥 caption 포함 -->
+          <div class="portfolio-caption">
+            <h4>{{ project.caption.title }}</h4>
+            <p class="text-muted">{{ project.caption.subtitle }}</p>
+          </div>
+
+        </a>
+
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include modals.html %}
